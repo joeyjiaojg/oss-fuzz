@@ -490,6 +490,15 @@ def build_image_impl(project, cache=True, pull=False):
   build_args = []
   if not cache:
     build_args.append('--no-cache')
+  if os.getenv('HTTPS_PROXY'):
+    build_args.append('--build-arg')
+    build_args.append('https_proxy=' + os.getenv('HTTPS_PROXY'))
+  if os.getenv('HTTP_PROXY'):
+    build_args.append('--build-arg')
+    build_args.append('http_proxy=' + os.getenv('HTTP_PROXY'))
+  if os.getenv('FTP_PROXY'):
+    build_args.append('--build-arg')
+    build_args.append('ftp_proxy=' + os.getenv('FTP_PROXY'))
 
   build_args += [
       '-t',
